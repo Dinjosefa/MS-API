@@ -12,6 +12,7 @@ const authTypeDefs = gql`
         password: String!
     }
     input SignUpInput {
+        is_superuser: Int
         username: String!
         password: String!
         firstname: String!
@@ -31,6 +32,7 @@ const authTypeDefs = gql`
     }
     
     type UserDetail {
+        is_superuser: Int!
         id: Int!
         username: String!
         firstname: String!
@@ -49,9 +51,8 @@ const authTypeDefs = gql`
         deleteUser(userId: Int!): Message!
         logIn(credentials: CredentialsInput!): Tokens!
         refreshToken(refresh: String!): Access!
-    }
-    type Query {
         userDetailById(userId: Int!): UserDetail!
+        userDetailByIdAdmin(userId: Int!): UserDetail!
     }
     `;
     module.exports = authTypeDefs;

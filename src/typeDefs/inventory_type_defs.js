@@ -45,7 +45,7 @@ const inventoryTypeDefs = gql`
         updateInventory(inventoryId: String!, inventoryUpdateInput: InventoryUpdateInput): InventoryDetail!
         delInventory(inventoryId: String!): String!
     }
-    extend type Query {
+    type Query {
         inventoryDetailById(inventoryId: String!): InventoryDetail!
         inventoriesDetail: [InventoryDetail]!
     }

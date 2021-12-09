@@ -1,15 +1,8 @@
 const usersResolver = {
-    Query: {
-        userDetailById: (_, { userId }, { dataSources, userIdToken }) => {
-            if (userId == userIdToken)
-                return dataSources.authAPI.getUser(userId)
-            else
-                return null
-        },
-    },
     Mutation: {
         signUpUser: async (_, { userInput }, { dataSources }) => {
             const authInput = {
+                is_superuser: userInput.is_superuser || 0,
                 username: userInput.username,
                 password: userInput.password,
                 firstname: userInput.firstname,
@@ -39,6 +32,19 @@ const usersResolver = {
         deleteUser: async(_, { userId}, { dataSources, userIdToken}) => {
             if (userId == userIdToken)
                 return await dataSources.authAPI.deleteUser(userId);
+            else
+                return null
+        },
+        userDetailById: async(_, { userId }, { dataSources, userIdToken }) => {
+            if (userId == userIdToken)
+                return await dataSources.authAPI.getUser(userId)
+            else
+                return null
+        },
+        userDetailByIdAdmin: async(_, { userId }, { dataSources, userIdToken }) => {
+            let Admin = await dataSources.authAPI.getUser(userIdToken)
+            if (Admin.is_superuser == 1)
+                return await dataSources.authAPI.getUser(userId)
             else
                 return null
         },
