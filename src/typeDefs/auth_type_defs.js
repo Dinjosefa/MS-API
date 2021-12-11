@@ -53,6 +53,7 @@ const authTypeDefs = gql`
         refreshToken(refresh: String!): Access!
         userDetailById(userId: Int!): UserDetail!
         userDetailByIdAdmin(userId: Int!): UserDetail!
+        updateUserByAdmin(userId: Int!, userInput: UpdateInput): UserDetail!
     }
     `;
     module.exports = authTypeDefs;
